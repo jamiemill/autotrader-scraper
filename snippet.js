@@ -10,11 +10,11 @@
 
 
 (function(){
-	let results = document.querySelectorAll(".search-page__result");
-	let data = [];
-	results.forEach(function(result) {
+    let results = document.querySelectorAll(".search-page__result");
+    let data = [];
+    results.forEach(function(result) {
         let car = {
-			price: result.querySelector(".product-card-pricing__price").innerText.replace(/\D/g,""),
+            price: result.querySelector(".product-card-pricing__price").innerText.replace(/\D/g,""),
             year: result.querySelector(".listing-key-specs .atc-type-picanto--medium:nth-child(1)").innerText.match(/^\d\d\d\d/)[0],
             mileage: result.querySelector(".listing-key-specs .atc-type-picanto--medium:nth-child(3)").innerText.replace(/\D/g,""),
             engine: result.querySelector(".listing-key-specs .atc-type-picanto--medium:nth-child(4)").innerText.replace(/\s/g,""),
@@ -22,16 +22,14 @@
             isPromoted: result.getAttribute("data-is-promoted-listing"),
             isFeatured: result.getAttribute("data-is-featured-listing"),
             isYouMayAlsoLike: result.getAttribute("data-is-ymal")
-		};
-		data.push(car);
-	});
-	console.log("Found this data...");
-	console.table(data);
+        };
+        data.push(car);
+    });
+    console.log("Found this data...");
+    console.table(data);
     let csv = "engine\tyear\tmileage\tprice\tlink\tis promoted\tis featured\tis you may also like\n" + data.map(function(car){
         return [car.engine, car.year, car.mileage, car.price, car.link, car.isPromoted, car.isFeatured, car.isYouMayAlsoLike].join("\t");
     }).join("\n");
     copy(csv);
-	console.log(`Copied ${data.length} results to clipboard`);
+    console.log(`Copied ${data.length} results to clipboard`);
 })();
-
-
